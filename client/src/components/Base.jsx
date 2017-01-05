@@ -1,21 +1,30 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import Auth from '../modules/Auth';
 
 
 const Base = ({ children }) => (
   <div>
-    <div className="top-bar">
-      <div className="top-bar-left">
-        <IndexLink to="/">React App</IndexLink>
-      </div>
+  <AppBar
+      title="React App"
+      showMenuIconButton = {false}
 
-      <div className="top-bar-right">
-        <Link to="/login">Log in</Link>
-        <Link to="/signup">Sign up</Link>
-      </div>
+      iconElementRight = {Auth.isUserAuthenticated() ? (
+        <div className="top-bar-right">
+          <Link to="/logout"><FlatButton label="Logout" secondary={true} /></Link>
+        </div>
+      ) : (
+        <div className="top-bar-right">
+          <Link to="/login"><FlatButton label="Login" secondary={true} /></Link>
+          <Link to="/signup"><FlatButton label="Sign Up" secondary={true} /></Link>
+        </div>
+      )}
+/>
 
-    </div>
 
+    { /* child component will be rendered here */ }
     {children}
 
   </div>
